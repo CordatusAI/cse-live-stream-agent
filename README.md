@@ -17,11 +17,18 @@ ps -ef | grep cordatus_se
 ![Service Port](/assets/cse_port.png)
 
 ### Defining the Target and Initializing the ClientSE
-First, we will start by defining the IP address of the target device and initialize the ClientSE class:
+First, we will start by gathering the IP address, port and token arguments via the terminal command and initialize the ClientSE class:
 ```
-target_ip = "http://192.168.1.230:7005"
-client  = ClientSE(target_ip)
+client = ClientSE(target_ip, token)
+ret, msg = client.check()
+print(msg)
+
+if not ret:
+    print("Unauthorized")
+    exit()
 ```
+
+If the token is wrong, the script will throw `Unauthorized` error.
 
 ### Camera Function Calls
 Then we need to specify which function should be used to open the local/remote camera stream by uncommenting one of the appropriate function calls provided.
@@ -64,11 +71,6 @@ client.close()
 ### Integrating Custom Code
 Within the `while` loop, you can place your code blocks to work with the frame you receive from Cordatus Stream Engine. The `frame` variable is the Numpy array in RGB format.
 
-## Running the Code
-```
-python3 stream_agent.py --target_ip 192.168.1.230 --target_port 7005 --token 7mXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXm3sh9V
-```
-
 ## Building the Project Locally
 Depending on the Python version that your project requires, build the sample image by providing the version information as follows:
 ```
@@ -85,6 +87,16 @@ xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/
 or
 
 xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY cordatus-live-stream-agent:v1.0-x86-py3.11.9
+```
+
+## Get Your Cordatus AI Token
+Navigate to the https://cordatus.ai and login to your account. Under the Devices tab, click on the `Actions` button of the target device and select `Generate Token`. This screen will provide you the necessary token information.
+
+![Retrieve your token](/assets/retrieve_token.gif)
+
+## Running the Code
+```
+python3 stream_agent.py --target_ip 192.168.1.230 --target_port 7005 --token 7mXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXm3sh9V
 ```
 
 ## TODOs
