@@ -82,11 +82,11 @@ or
 ```
 To run the container on x86 platforms:
 ```
-xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY cordatus-live-stream-agent:v1.0-x86-py3.8.19
+xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY cordatus-live-stream-agent:v1.0-x86_64-py3.8.19
 
 or
 
-xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY cordatus-live-stream-agent:v1.0-x86-py3.11.9
+xhost + && docker run -ti --gpus=all --network=host --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY cordatus-live-stream-agent:v1.0-x86_64-py3.11.9
 ```
 
 To run the container on NVIDIA Jetson platforms:
